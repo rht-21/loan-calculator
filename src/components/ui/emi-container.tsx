@@ -5,8 +5,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import type { ILoan } from "../LoanCalculator";
 import AmortizationTable from "./amortization-table";
 
@@ -21,9 +20,9 @@ const EMIContainer = ({
   loan: ILoan;
   setLoan: React.Dispatch<React.SetStateAction<ILoan>>;
 }) => {
-  const [exchangeRates, setExchangeRates] = useState<Record<string, number>>(
-    {}
-  );
+  const exchangeRates = sessionStorage.getItem("exchangeRates")
+    ? JSON.parse(sessionStorage.getItem("exchangeRates") as string)
+    : {};
   const [selectedCurrency, setSelectedCurrency] = useState<{
     code: string;
     rate: number;
@@ -31,23 +30,6 @@ const EMIContainer = ({
     code: "USD",
     rate: 1,
   });
-
-  useEffect(() => {
-    const fetchExchangeRates = async () => {
-      try {
-        const response = await axios.get(
-          "https://v6.exchangerate-api.com/v6/edd3e8e8efe1b5e0c7e3c6e7/latest/USD"
-        );
-        if (response.data.result === "success") {
-          setExchangeRates(response.data.conversion_rates);
-        }
-      } catch (error) {
-        console.error("Error fetching exchange rates:", error);
-      }
-    };
-
-    fetchExchangeRates();
-  }, []);
 
   return (
     <>

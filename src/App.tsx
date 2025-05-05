@@ -1,14 +1,37 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Navbar from "./components/Navbar";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import LoanCalculator from "./components/LoanCalculator";
 import { DarkContext } from "./context/dark-context";
 import { Route, Routes } from "react-router-dom";
 import ExchangeRates from "./components/ExchangeRates";
 import NotFound from "./components/NotFound";
+import axios from "axios";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const fetchExchangeRates = async () => {
+      try {
+        if (!sessionStorage.getItem("exchangeRates")) {
+          const response = await axios.get(
+            "https://v6.exchangerate-api.com/v6/edd3e8e8efe1b5e0c7e3c6e7/latest/USD"
+          );
+          if (response.data.result === "success") {
+            sessionStorage.setItem(
+              "exchangeRates",
+              JSON.stringify(response.data.conversion_rates)
+            );
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching exchange rates:", error);
+      }
+    };
+
+    fetchExchangeRates();
+  }, []);
 
   const darkTheme = useMemo(
     () =>
