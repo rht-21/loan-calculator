@@ -27,7 +27,7 @@ const App = () => {
           }
         }
       } catch (error) {
-        console.error("Error fetching exchange rates:", error);
+        console.log("Error fetching exchange rates:", error);
       }
     };
 
