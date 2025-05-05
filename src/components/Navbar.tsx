@@ -47,13 +47,13 @@ const Navbar = ({
             ))}
           </ul>
 
-          <div
+          <button
             role="toggle-theme"
             onClick={() => setDarkMode(!darkMode)}
             className="cursor-pointer"
           >
             {darkMode ? <IconSunFilled /> : <IconMoonFilled />}
-          </div>
+          </button>
 
           <Sheet>
             <SheetTrigger className="sm:hidden">
