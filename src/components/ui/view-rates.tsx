@@ -17,11 +17,12 @@ const ViewRates = () => {
   const [tableData, setTableData] = useState<Record<string, number> | null>(
     null
   );
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const getExchangeTable = async () => {
     try {
       const response = await axios.get(
-        `https://v6.exchangerate-api.com/v6/edd3e8e8efe1b5e0c7e3c6e7/latest/${selectedCurrency}`
+        `https://v6.exchangerate-api.com/v6/${apiUrl}/latest/${selectedCurrency}`
       );
       if (response.data.result === "success") {
         setTableData(response.data.conversion_rates);

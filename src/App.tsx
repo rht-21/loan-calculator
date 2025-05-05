@@ -10,13 +10,14 @@ import axios from "axios";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchExchangeRates = async () => {
       try {
         if (!sessionStorage.getItem("exchangeRates")) {
           const response = await axios.get(
-            "https://v6.exchangerate-api.com/v6/edd3e8e8efe1b5e0c7e3c6e7/latest/USD"
+            `https://v6.exchangerate-api.com/v6/${apiUrl}/latest/USD`
           );
           if (response.data.result === "success") {
             sessionStorage.setItem(
@@ -31,7 +32,7 @@ const App = () => {
     };
 
     fetchExchangeRates();
-  }, []);
+  }, [apiUrl]);
 
   const darkTheme = useMemo(
     () =>

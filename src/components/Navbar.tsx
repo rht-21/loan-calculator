@@ -2,6 +2,7 @@ import { AppBar } from "@mui/material";
 import { IconMenu, IconMoonFilled, IconSunFilled } from "@tabler/icons-react";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { useLocation, Link } from "react-router-dom";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 const Navbar = ({
   darkMode,
@@ -65,6 +66,7 @@ const Navbar = ({
                 darkMode ? "bg-neutral-900 border-neutral-800" : "bg-white"
               }`}
             >
+              <DialogTitle className="sr-only" hidden />
               {navItems.map(({ label, path }) => (
                 <Link
                   key={path}

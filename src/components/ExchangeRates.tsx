@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   FormControl,
   InputLabel,
@@ -31,7 +32,7 @@ const ExchangeRates = () => {
 
     const converted = (amount * toRate) / fromRate;
     setConvertedAmount(Number(converted.toFixed(2)));
-  }, [amount, fromCurrency, toCurrency, exchangeRates]);
+  }, [amount, fromCurrency, toCurrency]);
 
   return (
     <section className="pt-20 px-4 md:px-6 lg:px-8 max-w-7xl w-full mx-auto">
